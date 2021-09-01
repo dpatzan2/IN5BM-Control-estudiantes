@@ -24,7 +24,7 @@
         <jsp:include page="/WEB-INF/paginas/comunes/cabecera.jsp"/>
         <h1>Listado estudiantes</h1>
 
-        <table class="table-striped">
+        <table class="table table-striped">
             <thead class="table-dark">
                 <tr>
                     <th>#</th>
@@ -45,36 +45,6 @@
                     </tr>
                 </c:forEach>
             </tbody>
-        </table>
-        <table class="table-striped">
-            <thead class="table-dark">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-            </tbody>
-        </table>
 
         <div>
             <h3>Total de estudiantes</h3>
