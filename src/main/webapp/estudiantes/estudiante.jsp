@@ -45,6 +45,7 @@
                     </tr>
                 </c:forEach>
             </tbody>
+        </table>
 
         <div>
             <h3>Total de estudiantes</h3>
