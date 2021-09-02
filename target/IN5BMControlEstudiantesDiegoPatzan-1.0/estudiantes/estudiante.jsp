@@ -46,7 +46,14 @@
                 </c:forEach>
             </tbody>
         </table>
-
+        <div class="col-md-3">
+            <label for="validationDefault04" class="form-label">Estudiante</label>
+            <select class="form-select" id="validationDefault04" required>
+                <c:forEach var="estudiante" items="${listadoEstudiante}">
+                    <option>${estudiante.nombre} | ${estudiante.apellido}</option>
+                </c:forEach>
+            </select>
+        </div>
         <div>
             <h3>Total de estudiantes</h3>
             <h4>${totalEstudiantes}</h4>
