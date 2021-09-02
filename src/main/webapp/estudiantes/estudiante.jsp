@@ -22,30 +22,79 @@
 
         <!-- Cabecera -->
         <jsp:include page="/WEB-INF/paginas/comunes/cabecera.jsp"/>
-        <h1>Listado estudiantes</h1>
 
-        <table class="table table-striped">
-            <thead class="table-dark">
-                <tr>
-                    <th>#</th>
-                    <th>Nombre</th>
-                    <th>Saldo</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="estudiante" items="${listadoEstudiante}">
-                    <tr>
-                        <td>${estudiante.idEstudiante}</td>
-                        <td>${estudiante.nombre} ${estudiante.apellido}</td>
-                        <td>${estudiante.saldo}</td>
-                        <td>
-                            <a class="btn-secondary" href="${pageContext.request.contextPath}/ServletEstudianteController?accion=eliminar&idEstudiante=${estudiante.idEstudiante}">Eliminar</a>
-                        </td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+        <div id="main-header" class="py-2 bg-light text-dark mt-5">
+            <div class="container">
+                <div class="row">
+                    <di class="col-12">
+                        <h1>Control de Estudiantes</h1>
+                    </di>
+                </div>
+            </div>
+        </div>
+
+        <main>
+            <section id = "estudiante">
+                <div class="container mt-5">
+                    <div class="row">
+
+                        <div class="col-12 col-md-9">
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Listado de estudiantes</h4>
+                                </div>
+                            </div>
+
+                            <table class="table table-striped">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nombre</th>
+                                        <th>Saldo</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach var="estudiante" items="${listadoEstudiante}">
+                                        <tr>
+                                            <td>${estudiante.idEstudiante}</td>
+                                            <td>${estudiante.nombre} ${estudiante.apellido}</td>
+                                            <td>${estudiante.saldo}</td>
+                                            <td>
+                                                <a class="btn btn-secondary" href="${pageContext.request.contextPath}/ServletEstudianteController?accion=eliminar&idEstudiante=${estudiante.idEstudiante}">Eliminar</a>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                        <div class="col-12 col-md-3">
+
+                            <div class="card text-center bg-danger text-white mb-3">
+                                <div class="card-body">
+                                    <h3>Saldo total</h3>
+                                    <h4>${saldoTotal}</h4>
+                                </div>
+                            </div>
+
+                            <div class="card text-center bg-warning text-white mb-3">
+                                <div class="card-body">
+                                    <h3>Total de estudiantes</h3>
+                                    <h4>${totalEstudiantes}</h4>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </main>
+
+
         <div class="col-md-3">
             <label for="validationDefault04" class="form-label">Estudiante</label>
             <select class="form-select" id="validationDefault04" required>
@@ -54,15 +103,8 @@
                 </c:forEach>
             </select>
         </div>
-        <div>
-            <h3>Total de estudiantes</h3>
-            <h4>${totalEstudiantes}</h4>
-        </div>
 
-        <div>
-            <h3>Saldo total</h3>
-            <h4>${saldoTotal}</h4>
-        </div>
+
         <!-- pie de pagina -->
         <jsp:include page="/WEB-INF/paginas/comunes/pie-pagina.jsp"/>
 
