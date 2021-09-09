@@ -1,8 +1,6 @@
 /*
  * Copyright (C) 2021 Jorge Luis Pérez Canto
  */
-
-
 package com.diegopatzan.models.dao;
 
 import com.diegopatzan.db.Conexion;
@@ -21,18 +19,19 @@ import java.util.List;
  * @date Aug 19, 2021
  * @time 11:25:53 AM
  */
-
 public class EstudianteDaoImpl implements IEstudianteDao {
-    
+
     private static final String SQL_SELECT = "SELECT id_estudiante, nombre, apellido, email, telefono, saldo FROM estudiante";
     private static final String SQL_DELETE = "DELETE FROM estudiante WHERE id_estudiante = ?";
-    
+    private static final String SQL_INSERT = "INSERT INTO estudiante(nombre, apellido, email, telefono, saldo) VALUES (?, ?, ?, ?, ?)";
+    private static final String SQL_SELECT_BY_ID = "SELECT id_estudiante, nombre, apellido, email, telefono, saldo FROM estudiante WHERE id_estudiante = ?";
+
     private Connection conn = null;
     private PreparedStatement pstmt = null;
     private ResultSet rs = null;
     private Estudiante estudiante = null;
-    private List<Estudiante> listaEstudiantes = new ArrayList<>();  
-    
+    private List<Estudiante> listaEstudiantes = new ArrayList<>();
+
     //Obtener todos los listaEstudiantes
     @Override
     public List<Estudiante> listar() {
@@ -40,7 +39,7 @@ public class EstudianteDaoImpl implements IEstudianteDao {
             conn = Conexion.getConnection();
             pstmt = conn.prepareStatement(SQL_SELECT);
             rs = pstmt.executeQuery();
-            
+
             while (rs.next()) {
                 int idEstudiante = rs.getInt("id_estudiante");
                 String nombre = rs.getString("nombre");
@@ -48,7 +47,7 @@ public class EstudianteDaoImpl implements IEstudianteDao {
                 String email = rs.getString("email");
                 String telefono = rs.getString("telefono");
                 double saldo = rs.getDouble("saldo");
-                
+
                 estudiante = new Estudiante(idEstudiante, nombre, apellido, email, telefono, saldo);
                 listaEstudiantes.add(estudiante);
             }
@@ -63,18 +62,63 @@ public class EstudianteDaoImpl implements IEstudianteDao {
         }
         return listaEstudiantes;
     }
-    
+
     //Obtener un estudiante por el id
     @Override
     public Estudiante encontrar(Estudiante estudiante) {
-        // return listaEstudiantes.get(id);
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            conn = Conexion.getConnection();
+            pstmt = conn.prepareStatement(SQL_SELECT_BY_ID);
+            pstmt.setInt(1, estudiante.getIdEstudiante());
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                String nombre = rs.getString("nombre");
+                String apellido = rs.getString("apellido");
+                String email = rs.getString("email");
+                String telefono = rs.getString("telefono");
+                double saldo = rs.getDouble("saldo");
+                
+                estudiante.setNombre(nombre);
+                estudiante.setApellido(apellido);
+                estudiante.setEmail(email);
+                estudiante.setTelefono(telefono);
+                estudiante.setSaldo(saldo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
+        } finally {
+            Conexion.close(rs);
+            Conexion.close(pstmt);
+            Conexion.close(conn);
+        }
+        return estudiante;
     }
-    
+
     // Insertar un estudiante
     @Override
     public int insertar(Estudiante estudiante) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int rows = 0;
+        try {
+            conn = Conexion.getConnection();
+            pstmt = conn.prepareStatement(SQL_INSERT);
+            pstmt.setString(1, estudiante.getNombre());
+            pstmt.setString(2, estudiante.getApellido());
+            pstmt.setString(3, estudiante.getEmail());
+            pstmt.setString(4, estudiante.getTelefono());
+            pstmt.setDouble(5, estudiante.getSaldo());
+            rows = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
+        } finally {
+            Conexion.close(pstmt);
+            Conexion.close(conn);
+        }
+        return rows;
     }
 
     // Actualizar un estudiante

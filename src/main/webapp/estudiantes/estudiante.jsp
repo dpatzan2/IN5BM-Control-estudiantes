@@ -60,24 +60,24 @@
                         </div>
                         <form method="POST" action="${pageContext.request.contextPath}/ServletEstudianteController" class="was-validated">
                             <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="nombre">Nombre</label>
-                                    <input type="text" class="form-control" name="nombre" id="nombre">
+                                <div class="mb-3">
+                                    <label for="nombre" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control" name="nombre" id="nombre" required>
                                 </div>
-                                <div class="form-group">
-                                    <label for="apellido">Apellido</label>
-                                    <input type="text" class="form-control" name="apellido" id="apellido">
+                                <div class="mb-3">
+                                    <label for="apellido" class="form-label">Apellido</label>
+                                    <input type="text" class="form-control" name="apellido" id="apellido" required>
                                 </div>
-                                <div class="form-group">
-                                    <label for="email">E-Mail</label>
-                                    <input type="email" class="form-control" name="email" id="email">
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">E-Mail</label>
+                                    <input type="email" class="form-control" name="email" id="email" required>
                                 </div>
-                                <div class="form-group">
-                                    <label for="telefono">Teléfono</label>
-                                    <input type="tel" class="form-control" name="telefono" id="telefono">
+                                <div class="mb-3">
+                                    <label for="telefono" class="form-label">Teléfono</label>
+                                    <input type="tel" class="form-control" name="telefono" id="telefono" required>
                                 </div>
-                                <div class="form-group">
-                                    <label for="saldo">Saldo</label>
+                                <div class="mb-3">
+                                    <label for="saldo" class="form-label">Saldo</label>
                                     <input type="number" class="form-control" name="saldo" id="saldo" step="any">
                                 </div>
                                 <input type="hidden" name="accion" value="insertar">

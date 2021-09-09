@@ -24,9 +24,12 @@ import javax.servlet.ServletException;
 public class ServletEstudianteController extends HttpServlet {
 
     private static final String JSP_LISTAR = "estudiantes/estudiante.jsp";
+    private static final String JSP_EDITAR = "estudiantes/editar-estudiante.jsp";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        
+        request.setCharacterEncoding("UTF-8");
         String accion = request.getParameter("accion");
         if (accion != null) {
             switch (accion) {
@@ -37,7 +40,7 @@ public class ServletEstudianteController extends HttpServlet {
         }
     }
 
-    private void insertarEstudiante(HttpServletRequest request, HttpServletResponse response) {
+    private void insertarEstudiante(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String nombre = request.getParameter("nombre");
         String apellido = request.getParameter("apellido");
         String email = request.getParameter("email");
@@ -49,11 +52,17 @@ public class ServletEstudianteController extends HttpServlet {
             saldo = Double.parseDouble(request.getParameter("saldo"));
         }
         Estudiante estudiante = new Estudiante(nombre, apellido, email, telefono, saldo);
+        
+        int registrosInsertados = new EstudianteDaoImpl().insertar(estudiante);
+        
+        listarEstudiantes(request, response);
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
+        request.setCharacterEncoding("UTF-8");
+        
         String accion = request.getParameter("accion");
 
         if (accion != null) {
@@ -62,11 +71,8 @@ public class ServletEstudianteController extends HttpServlet {
                 case "listar":
                     listarEstudiantes(request, response);
                     break;
-                case "insertar":
-                    // insertar
-                    break;
                 case "editar":
-                    // Nombre del método a llamar para editar
+                    editarEstudiante(request, response);
                     break;
                 case "eliminar":
                     eliminarEstudiante(request, response);
@@ -74,6 +80,15 @@ public class ServletEstudianteController extends HttpServlet {
             }
 
         }
+    }
+    
+    private void editarEstudiante(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
+        int idEstudiante = Integer.parseInt(request.getParameter("idEstudiante"));
+        
+        Estudiante estudiante = new EstudianteDaoImpl().encontrar(new Estudiante(idEstudiante));
+        
+        request.setAttribute("estudiante", estudiante);
+        request.getRequestDispatcher(JSP_EDITAR).forward(request, response);
     }
 
     private void eliminarEstudiante(HttpServletRequest request, HttpServletResponse response) throws IOException {

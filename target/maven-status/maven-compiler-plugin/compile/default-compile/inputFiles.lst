@@ -1,6 +1,6 @@
-C:\Users\Windows 10\OneDrive\Documents\NetBeansProjects\IN5BMControlEstudiantesDiegoPatzan\src\main\java\com\diegopatzan\db\Conexion.java
-C:\Users\Windows 10\OneDrive\Documents\NetBeansProjects\IN5BMControlEstudiantesDiegoPatzan\src\main\java\com\diegopatzan\models\dao\EstudianteDaoImpl.java
-C:\Users\Windows 10\OneDrive\Documents\NetBeansProjects\IN5BMControlEstudiantesDiegoPatzan\src\main\java\com\diegopatzan\controllers\ServletEstudianteController.java
-C:\Users\Windows 10\OneDrive\Documents\NetBeansProjects\IN5BMControlEstudiantesDiegoPatzan\src\main\java\com\diegopatzan\models\domain\Estudiante.java
-C:\Users\Windows 10\OneDrive\Documents\NetBeansProjects\IN5BMControlEstudiantesDiegoPatzan\src\main\java\com\diegopatzan\models\idao\IEstudianteDao.java
-C:\Users\Windows 10\OneDrive\Documents\NetBeansProjects\IN5BMControlEstudiantesDiegoPatzan\src\main\java\com\diegopatzan\system\Principal.java
+C:\Users\Windows 10\OneDrive\Documents\NetBeansProjects\in5bm-control-estudiantes-diego-patzan\src\main\java\com\diegopatzan\db\Conexion.java
+C:\Users\Windows 10\OneDrive\Documents\NetBeansProjects\in5bm-control-estudiantes-diego-patzan\src\main\java\com\diegopatzan\models\domain\Estudiante.java
+C:\Users\Windows 10\OneDrive\Documents\NetBeansProjects\in5bm-control-estudiantes-diego-patzan\src\main\java\com\diegopatzan\models\dao\EstudianteDaoImpl.java
+C:\Users\Windows 10\OneDrive\Documents\NetBeansProjects\in5bm-control-estudiantes-diego-patzan\src\main\java\com\diegopatzan\controllers\ServletEstudianteController.java
+C:\Users\Windows 10\OneDrive\Documents\NetBeansProjects\in5bm-control-estudiantes-diego-patzan\src\main\java\com\diegopatzan\system\Principal.java
+C:\Users\Windows 10\OneDrive\Documents\NetBeansProjects\in5bm-control-estudiantes-diego-patzan\src\main\java\com\diegopatzan\models\idao\IEstudianteDao.java
