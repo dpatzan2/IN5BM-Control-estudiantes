@@ -34,9 +34,10 @@
                 <label for="saldo" class="form-label">Saldo</label>
                 <input type="number" class="form-control" name="saldo" id="saldo" step="any" value="${estudiante.saldo}">
             </div>
-            <input type="hidden" name="accion" value="insertar">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Guardar</button>
+            <input type="hidden" name="idEstudiante" value="${estudiante.idEstudiante}">
+            <input type="hidden" name="accion" value="actualizar">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
         </form>
 
 

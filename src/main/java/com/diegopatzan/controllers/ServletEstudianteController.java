@@ -28,7 +28,7 @@ public class ServletEstudianteController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        
+
         request.setCharacterEncoding("UTF-8");
         String accion = request.getParameter("accion");
         if (accion != null) {
@@ -36,8 +36,29 @@ public class ServletEstudianteController extends HttpServlet {
                 case "insertar":
                     insertarEstudiante(request, response);
                     break;
+                case "actualizar":
+                    actualizarEstudiante(request, response);
+                    break;
             }
         }
+    }
+
+    private void actualizarEstudiante(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int idEstudiante = Integer.parseInt(request.getParameter("idEstudiante"));
+        String nombre = request.getParameter("nombre");
+        String apellido = request.getParameter("apellido");
+        String email = request.getParameter("email");
+        String telefono = request.getParameter("telefono");
+        String saldoStr = request.getParameter("saldo");
+
+        double saldo = 0;
+        if ((saldoStr != null) && (!saldoStr.equals(""))) {
+            saldo = Double.parseDouble(request.getParameter("saldo"));
+        }
+        Estudiante estudiante = new Estudiante(idEstudiante, nombre, apellido, email, telefono, saldo);
+
+        int registrosModificados = new EstudianteDaoImpl().actualizar(estudiante);
+        listarEstudiantes(request, response);
     }
 
     private void insertarEstudiante(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -46,15 +67,15 @@ public class ServletEstudianteController extends HttpServlet {
         String email = request.getParameter("email");
         String telefono = request.getParameter("telefono");
         String saldoStr = request.getParameter("saldo");
-        
+
         double saldo = 0;
         if ((saldoStr != null) && (!saldoStr.equals(""))) {
             saldo = Double.parseDouble(request.getParameter("saldo"));
         }
         Estudiante estudiante = new Estudiante(nombre, apellido, email, telefono, saldo);
-        
+
         int registrosInsertados = new EstudianteDaoImpl().insertar(estudiante);
-        
+
         listarEstudiantes(request, response);
     }
 
@@ -62,7 +83,7 @@ public class ServletEstudianteController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         request.setCharacterEncoding("UTF-8");
-        
+
         String accion = request.getParameter("accion");
 
         if (accion != null) {
@@ -81,12 +102,12 @@ public class ServletEstudianteController extends HttpServlet {
 
         }
     }
-    
-    private void editarEstudiante(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
+
+    private void editarEstudiante(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int idEstudiante = Integer.parseInt(request.getParameter("idEstudiante"));
-        
+
         Estudiante estudiante = new EstudianteDaoImpl().encontrar(new Estudiante(idEstudiante));
-        
+
         request.setAttribute("estudiante", estudiante);
         request.getRequestDispatcher(JSP_EDITAR).forward(request, response);
     }

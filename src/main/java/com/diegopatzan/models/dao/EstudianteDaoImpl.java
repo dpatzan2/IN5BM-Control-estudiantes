@@ -25,7 +25,8 @@ public class EstudianteDaoImpl implements IEstudianteDao {
     private static final String SQL_DELETE = "DELETE FROM estudiante WHERE id_estudiante = ?";
     private static final String SQL_INSERT = "INSERT INTO estudiante(nombre, apellido, email, telefono, saldo) VALUES (?, ?, ?, ?, ?)";
     private static final String SQL_SELECT_BY_ID = "SELECT id_estudiante, nombre, apellido, email, telefono, saldo FROM estudiante WHERE id_estudiante = ?";
-
+    private static final String SQL_UPDATE = "UPDATE estudiante SET nombre = ?, apellido = ?, email = ?, telefono = ?, saldo = ? WHERE id_estudiante = ?";
+    
     private Connection conn = null;
     private PreparedStatement pstmt = null;
     private ResultSet rs = null;
@@ -123,8 +124,27 @@ public class EstudianteDaoImpl implements IEstudianteDao {
 
     // Actualizar un estudiante
     @Override
-    public int actualizar(Estudiante estudinate) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int actualizar(Estudiante estudiante) {
+        int rows = 0;
+        try {
+            conn = Conexion.getConnection();
+            pstmt = conn.prepareStatement(SQL_UPDATE);
+            pstmt.setString(1, estudiante.getNombre());
+            pstmt.setString(2, estudiante.getApellido());
+            pstmt.setString(3, estudiante.getEmail());
+            pstmt.setString(4, estudiante.getTelefono());
+            pstmt.setDouble(5, estudiante.getSaldo());
+            pstmt.setInt(6, estudiante.getIdEstudiante());
+            rows = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
+        } finally {
+            Conexion.close(pstmt);
+            Conexion.close(conn);
+        }
+        return rows;
     }
 
     // Eliminar un estudiante por el id
