@@ -5,6 +5,7 @@ package com.diegopatzan.controllers;
 
 import com.diegopatzan.models.dao.EstudianteDaoImpl;
 import com.diegopatzan.models.domain.Estudiante;
+import com.diegopatzan.models.dao.EstudianteDaoJPA;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.http.HttpServlet;
@@ -130,7 +131,9 @@ public class ServletEstudianteController extends HttpServlet {
 
     private void listarEstudiantes(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        List<Estudiante> listaEstudiante = new EstudianteDaoImpl().listar();
+        //List<Estudiante> listaEstudiante = new EstudianteDaoImpl().listar();
+        
+        List<Estudiante> listaEstudiante = new EstudianteDaoJPA().listar();
 
         HttpSession sesion = request.getSession();
         sesion.setAttribute("listadoEstudiante", listaEstudiante);
