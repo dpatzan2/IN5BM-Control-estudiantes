@@ -58,7 +58,7 @@ public class ServletEstudianteController extends HttpServlet {
         }
         Estudiante estudiante = new Estudiante(idEstudiante, nombre, apellido, email, telefono, saldo);
 
-        int registrosModificados = new EstudianteDaoImpl().actualizar(estudiante);
+        int registrosModificados = new EstudianteDaoJPA().actualizar(estudiante);
         listarEstudiantes(request, response);
     }
 
@@ -75,7 +75,8 @@ public class ServletEstudianteController extends HttpServlet {
         }
         Estudiante estudiante = new Estudiante(nombre, apellido, email, telefono, saldo);
 
-        int registrosInsertados = new EstudianteDaoImpl().insertar(estudiante);
+        //int registrosInsertados = new EstudianteDaoImpl().insertar(estudiante);
+        int registrosInsertados = new EstudianteDaoJPA().insertar(estudiante);
 
         listarEstudiantes(request, response);
     }
@@ -107,7 +108,7 @@ public class ServletEstudianteController extends HttpServlet {
     private void editarEstudiante(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int idEstudiante = Integer.parseInt(request.getParameter("idEstudiante"));
 
-        Estudiante estudiante = new EstudianteDaoImpl().encontrar(new Estudiante(idEstudiante));
+        Estudiante estudiante = new EstudianteDaoJPA().encontrar(new Estudiante(idEstudiante));
 
         request.setAttribute("estudiante", estudiante);
         request.getRequestDispatcher(JSP_EDITAR).forward(request, response);
@@ -119,11 +120,12 @@ public class ServletEstudianteController extends HttpServlet {
         int idEstudiante = Integer.parseInt(request.getParameter("idEstudiante"));
 
         // Creamos el objeto de estudiante (modelo)
-        Estudiante estudiante = new Estudiante(idEstudiante);
+        Estudiante estudiante = new EstudianteDaoJPA().encontrar(new Estudiante(idEstudiante));
 
         // Eliminar el objeto de la base de datos
-        int registrosEliminados = new EstudianteDaoImpl().eliminar(estudiante);
-
+        //int registrosEliminados = new EstudianteDaoImpl().eliminar(estudiante);
+        int registrosEliminados = new EstudianteDaoJPA().eliminar(estudiante);
+     
         System.out.println("Cantidad de registros eliminados: " + registrosEliminados);
 
         listarEstudiantes(request, response);

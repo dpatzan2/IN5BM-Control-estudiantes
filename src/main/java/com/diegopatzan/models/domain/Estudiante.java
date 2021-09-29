@@ -25,6 +25,10 @@ import javax.persistence.Table;
     @NamedQuery(
             name = "Estudiante.findAll",
             query = "from Estudiante"
+    ),
+    @NamedQuery(
+            name = "Estudiante.find",
+            query = "from Estudiante WHERE id_estudiante = :id"
     )
 })
 public class Estudiante implements Serializable {
@@ -33,7 +37,7 @@ public class Estudiante implements Serializable {
 
     @Id
     @Column(name = "id_estudiante")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idEstudiante;
 
     @Column(name = "nombre")

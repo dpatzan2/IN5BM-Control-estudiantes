@@ -14,10 +14,10 @@ import java.util.List;
  *
  * @author Windows 10
  */
-public class EstudianteDaoJPA implements IEstudianteDao{
+public class EstudianteDaoJPA implements IEstudianteDao {
 
     private ConexionPU conn = ConexionPU.getInstance();
-    
+
     @Override
     public List<Estudiante> listar() {
         return conn.getEntityManager().createNamedQuery("Estudiante.findAll").getResultList();
@@ -25,22 +25,53 @@ public class EstudianteDaoJPA implements IEstudianteDao{
 
     @Override
     public Estudiante encontrar(Estudiante estudiante) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (Estudiante) conn.getEntityManager().createNamedQuery("Estudiante.find").setParameter("id", estudiante.getIdEstudiante()).getSingleResult();
     }
 
     @Override
     public int insertar(Estudiante estudiante) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int rows = 0;
+        try {
+            conn.getEntityManager().getTransaction().begin();
+            conn.getEntityManager().persist(estudiante);
+            conn.getEntityManager().getTransaction().commit();
+            rows = 1;
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
+            conn.getEntityManager().getTransaction().rollback();
+        }
+        return rows;
+
     }
 
     @Override
     public int actualizar(Estudiante estudiante) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int rows = 0;
+        try {
+            conn.getEntityManager().getTransaction().begin();
+            conn.getEntityManager().merge(estudiante);
+            conn.getEntityManager().getTransaction().commit();
+            rows = 1;
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
+            conn.getEntityManager().getTransaction().rollback();
+        }
+        return rows;
     }
 
     @Override
     public int eliminar(Estudiante estudiante) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int rows = 0;
+        try {
+            conn.getEntityManager().getTransaction().begin();
+            conn.getEntityManager().remove(estudiante);
+            conn.getEntityManager().getTransaction().commit();
+            rows = 1;
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
+            conn.getEntityManager().getTransaction().rollback();
+        }
+        return rows;
     }
-    
+
 }
